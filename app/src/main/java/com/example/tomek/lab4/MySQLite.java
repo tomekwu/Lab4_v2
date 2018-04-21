@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class MySQLite extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
 
 
@@ -19,7 +19,7 @@ public class MySQLite extends SQLiteOpenHelper {
 
         @Override
         public void onCreate(SQLiteDatabase database) {
-            String DATABASE_CREATE = "create table animals " + "(id integer primary key autoincrement," + "gatunek text not null," + "kolor text not null," + "wielkosc real not null," + "opis text not null);";
+            String DATABASE_CREATE = "create table animals " + "(_id integer primary key autoincrement," + "gatunek text not null," + "kolor text not null," + "wielkosc real not null," + "opis text not null);";
             database.execSQL (DATABASE_CREATE);
         }
 
@@ -44,7 +44,7 @@ public class MySQLite extends SQLiteOpenHelper {
 
         public void usun (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("animals", "id=?", new String[] {id});
+        db.delete("animals", "_id=?", new String[] {id});
         db.close();
         }
 
@@ -57,7 +57,7 @@ public class MySQLite extends SQLiteOpenHelper {
         values.put("wielkosc", zwierz.getWielkosc());
         values.put("opis", zwierz.getOpis());
 
-        int i = db.update("animals", values, "id=?", new String[]{String.valueOf(zwierz.getId())});
+        int i = db.update("animals", values, "_id=?", new String[]{String.valueOf(zwierz.getId())});
         db.close();
         return i;
         }
@@ -65,15 +65,15 @@ public class MySQLite extends SQLiteOpenHelper {
         public Animal pobierz(int id) {
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.query("animals", new String[]{
-                    "id", "gatunek", "kolor", "wielkosc", "opis"},
-                    "id=?",
+                    "_id", "gatunek", "kolor", "wielkosc", "opis"},
+                    "_id=?",
                     new String []{ String.valueOf(id)}, null, null, null, null);
 
                         if (cursor!=null)
                             cursor.moveToFirst();
 
-    //        Animal zwierz = new Animal(cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getString(4)); //dlaczego zaczyna od 0
-            Animal zwierz = new Animal(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getString(4));
+            Animal zwierz = new Animal(cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getString(4));
+    //        Animal zwierz = new Animal(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getFloat(3), cursor.getString(4));
 
             zwierz.setId(Integer.parseInt(cursor.getString(0)));
 

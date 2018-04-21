@@ -4,14 +4,16 @@ import java.io.Serializable;
 
 public class Animal implements Serializable{
 
-    private int id;
+    private int _id;
     private String gatunek;
     private String kolor;
     private float wielkosc;
     private String opis;
 
-    public Animal(int id, String gatunek, String kolor, float wielkosc, String opis) {
-        this.id = id;
+    public Animal(){}
+
+    public Animal(String gatunek, String kolor, float wielkosc, String opis) {
+        super();
         this.gatunek = gatunek;
         this.kolor = kolor;
         this.wielkosc = wielkosc;
@@ -20,12 +22,12 @@ public class Animal implements Serializable{
 
     @Override
     public String toString(){
-        return "Zwierze [id=" + id + ", gatunek=" +gatunek+ ", kolor=" + kolor + "wielkosc="+wielkosc+"]";
+        return "Zwierze [id=" + _id + ", gatunek=" +gatunek+ ", kolor=" + kolor + "wielkosc="+wielkosc+"]";
     }
 
 
     public int getId() {
-        return id;
+        return _id;
     }
 
     public String getGatunek() {
@@ -45,7 +47,7 @@ public class Animal implements Serializable{
     }
 
     public void setId(int id){
-        this.id=id;
+        this._id=id;
     }
 }
 
