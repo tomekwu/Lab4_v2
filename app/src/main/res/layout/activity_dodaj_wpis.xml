@@ -63,7 +63,8 @@
         android:ems="10"
         android:inputType="number"
         android:text="Wprowadź wielkość"
-        />
+        app:layout_constraintStart_toStartOf="@+id/kolor"
+        app:layout_constraintTop_toBottomOf="@+id/kolor" />
 
     <EditText
         android:id="@+id/opis"
